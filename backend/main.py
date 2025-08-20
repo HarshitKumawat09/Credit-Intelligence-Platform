@@ -1,87 +1,66 @@
 # backend/main.py
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, BackgroundTasks
+from backend.services.data_fetcher import get_yahoo_finance_data, get_market_sentiment_data, get_news_data, get_fred_data
+from backend.services.scoring_engine import get_score_and_explanation, train_technical_model, engineer_features
+import logging
+import pandas as pd # <-- IMPORT MOVED TO TOP
 
-# Use absolute imports for our service modules
-from backend.services import data_fetcher
-from backend.services import scoring_engine
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+app = FastAPI(title="CredTech AI API", version="1.0.0")
 
-app = FastAPI(
-    title="CredTech AI API",
-    description="API for the Explainable Credit Intelligence Platform.",
-    version="0.1.0"
-)
-
-# --- PRIMARY API ENDPOINTS ---
-
-@app.get("/")
-def read_root():
-    """A simple endpoint to check if the API is running."""
-    return {"message": "Welcome to the CredTech AI Backend!"}
-
+def retrain_model_background(ticker: str):
+    logging.info(f"[BACKGROUND] Starting retraining process for {ticker}...")
+    try:
+        yf_data = get_yahoo_finance_data(ticker)
+        if not yf_data:
+            logging.error(f"[BACKGROUND] Failed to fetch yfinance data for {ticker}. Aborting."); return
+        
+        company_name = yf_data["info"].get("longName", ticker)
+        market_sentiment = get_market_sentiment_data()
+        fred_data = get_fred_data()
+        fred_data = fred_data if fred_data is not None else pd.Series(dtype='float64')
+        news_data = get_news_data(query=company_name)
+        
+        all_features = engineer_features(yf_data, market_sentiment, fred_data, news_data or [])
+        
+        # --- TYPO CORRECTED ---
+        if not all_features.empty:
+            train_technical_model(all_features, ticker)
+            logging.info(f"[BACKGROUND] Retraining for {ticker} completed successfully.")
+        else:
+            logging.warning(f"[BACKGROUND] Not enough data to retrain model for {ticker}.")
+    except Exception as e:
+        logging.error(f"[BACKGROUND] An error occurred during retraining for {ticker}: {e}")
 
 @app.get("/api/v1/score/{ticker}")
-async def get_credit_score(ticker: str):
-    """
-    Orchestrates the entire process: fetches data, gets a score and explanation,
-    and returns a complete payload for the enhanced frontend.
-    """
-    # STEP 1: Fetch data from all sources.
-    yf_data = data_fetcher.get_yahoo_finance_data(ticker)
-    if not yf_data:
-        raise HTTPException(status_code=404, detail=f"Invalid ticker or no data found for {ticker} from Yahoo Finance.")
-    
-    company_name = yf_data["info"].get("longName", ticker)
-    wb_data = data_fetcher.get_world_bank_data()
-    news_data = data_fetcher.get_news_data(query=company_name)
+async def get_credit_score(ticker: str, background_tasks: BackgroundTasks):
+    logging.info(f"Received request for ticker: {ticker.upper()}")
+    try:
+        yf_data = get_yahoo_finance_data(ticker)
+        if not yf_data: raise HTTPException(status_code=404, detail=f"Invalid ticker or no data for {ticker}.")
+        company_name = yf_data["info"].get("longName", ticker)
+        market_sentiment = get_market_sentiment_data()
+        fred_data = get_fred_data()
+        fred_data = fred_data if fred_data is not None else pd.Series(dtype='float64')
+        news_data = get_news_data(query=company_name)
+    except Exception as e:
+        logging.error(f"Data fetching failed: {e}"); raise HTTPException(status_code=500, detail="Failed to fetch data.")
 
-    # STEP 2: Call the scoring engine.
-    result = scoring_engine.get_score_and_explanation(
-        ticker=ticker,
-        yf_data=yf_data,
-        wb_data=wb_data or [],
+    result = get_score_and_explanation(
+        ticker=ticker, yf_data=yf_data,
+        market_sentiment=market_sentiment,
+        fred_data=fred_data,
         news_data=news_data or []
     )
     
-    if "error" in result:
-         raise HTTPException(status_code=500, detail=result["error"])
-
-    # STEP 3: Return the complete, corrected payload.
-    # This now includes all the data our new frontend needs.
-    return {
-        "ticker": ticker,
-        "company_name": company_name,
-        "company_info": yf_data.get("info"),              # CORRECTLY ADDED
-        "score_result": result,
-        "stock_history": yf_data.get("historical_data"),  # CORRECTLY ADDED
-        "recent_news_for_context": news_data[:5] if news_data else []
-    }
-
-
-# --- DEBUGGING ENDPOINTS ---
-
-@app.get("/api/v1/fetch-all/{ticker}")
-def fetch_all_raw_data(ticker: str):
-    """
-    A debugging endpoint to fetch and view all raw data for a given company ticker.
-    This is now corrected to perform its original function.
-    """
-    yf_data = data_fetcher.get_yahoo_finance_data(ticker)
-    if not yf_data:
-        raise HTTPException(status_code=404, detail=f"Could not fetch data for ticker {ticker}.")
+    if "error" in result or result.get('assessment_type') == 'Heuristic':
+        logging.warning(f"Returning known error or heuristic to frontend.")
+        return {"ticker": ticker.upper(), "company_name": company_name, "company_info": yf_data.get("info"), "score_result": result, "stock_history": yf_data.get("historical_data"), "recent_news_for_context": news_data[:5] if news_data else []}
     
-    company_name = yf_data["info"].get("longName", ticker)
-    wb_data = data_fetcher.get_world_bank_data()
-    news_data = data_fetcher.get_news_data(query=company_name)
+    background_tasks.add_task(retrain_model_background, ticker)
+    logging.info(f"Scheduled background retraining for {ticker}.")
+    return {"ticker": ticker.upper(), "company_name": company_name, "company_info": yf_data.get("info"), "score_result": result, "stock_history": yf_data.get("historical_data"), "recent_news_for_context": news_data[:5] if news_data else []}
 
-    # CORRECTED RETURN STATEMENT:
-    # - Fixed indentation.
-    # - Returns only the raw data fetched within this function.
-    return {
-        "message": "Raw data fetch successful. This is a debugging endpoint.",
-        "ticker": ticker,
-        "company_info": yf_data.get("info"),
-        "stock_history": yf_data.get("historical_data"),
-        "macro_economic_context": wb_data,
-        "recent_news": news_data
-    }
+@app.get("/")
+def read_root(): return {"message": "CredTech API is running."}
