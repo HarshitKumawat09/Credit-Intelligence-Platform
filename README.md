@@ -184,40 +184,49 @@ This diagram shows the sequence of events for a typical user request, highlighti
 
 ```mermaid
 sequenceDiagram
+    %% Participants
     participant User
     participant Frontend
-    participant BackendAPI as FastAPI Backend
-    participant BackgroundTask as Async Retraining
-    participant ExternalAPIs as Data Sources
+    participant Backend as FastAPI Backend
+    participant AsyncJob as Background Retraining
+    participant External as External APIs (YFinance, FRED, News)
 
-    User->>Frontend: Enters Ticker & Clicks "Analyze"
-    Frontend->>BackendAPI: GET /api/v1/score/{ticker}
-    
-    activate BackendAPI
-    BackendAPI->>ExternalAPIs: Fetch all required data (YFinance, FRED, News)
-    ExternalAPIs-->>BackendAPI: Return fresh data
-    
-    BackendAPI->>BackendAPI: 1. Calculate Fundamental Score
-    BackendAPI->>BackendAPI: 2. Load pre-trained Technical Model
-    BackendAPI->>BackendAPI: 3. Calculate Technical Penalty
-    BackendAPI->>BackendAPI: 4. Compute Final Score & Explanation
-    
-    par
-        BackendAPI-->>Frontend: Return full JSON Response (Instant)
-        and
-        BackendAPI-->>BackgroundTask: Trigger Retraining Job
+    %% User initiates request
+    User->>Frontend: Enter Ticker & Click "Analyze"
+    Frontend->>Backend: GET /api/v1/score/{ticker}
+
+    activate Backend
+
+    %% Backend fetches data
+    Backend->>External: Fetch data (YFinance, FRED, News)
+    External-->>Backend: Return fresh data
+
+    %% Backend processing
+    Backend->>Backend: Calculate Fundamental Score
+    Backend->>Backend: Load Technical Model
+    Backend->>Backend: Compute Technical Penalty
+    Backend->>Backend: Final Score + Explanation
+
+    %% Parallel response and async task
+    par Send Response
+        Backend-->>Frontend: Return JSON (Score + Insights)
+    and Trigger Async Retraining
+        Backend-->>AsyncJob: Start Retraining Task
     end
-    deactivate BackendAPI
 
+    deactivate Backend
+
+    %% Frontend renders results
     activate Frontend
-    Frontend->>User: Display Gauges, Charts, and Insights
+    Frontend->>User: Show Charts, Gauges & Insights
     deactivate Frontend
 
-    activate BackgroundTask
-    BackgroundTask->>ExternalAPIs: Re-fetch all fresh data
-    ExternalAPIs-->>BackgroundTask: Return fresh data
-    BackgroundTask->>BackgroundTask: Run Optuna Tuning & Retrain Model
-    BackgroundTask->>BackgroundTask: Save new model to disk
-    deactivate BackgroundTask
+    %% Background async task
+    activate AsyncJob
+    AsyncJob->>External: Re-fetch Full Data
+    External-->>AsyncJob: Return Updated Data
+    AsyncJob->>AsyncJob: Run Optuna Tuning
+    AsyncJob->>AsyncJob: Retrain & Save Model
+    deactivate AsyncJob
 ```
 
