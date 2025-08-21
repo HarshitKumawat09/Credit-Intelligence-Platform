@@ -31,7 +31,8 @@ Instructions:
 ======================================================================
 -->
 
-CredLens Dashboard
+**CredLens Dashboard**
+
 <img width="1906" height="821" alt="Screenshot 2025-08-22 003447" src="https://github.com/user-attachments/assets/9f43d8e0-810c-45cd-afb0-105df73962de" />
 
 
@@ -198,7 +199,13 @@ Instructions:
 4. Replace this entire block with the generated image link.
 ======================================================================
 -->
-![Explanation Chart for SMCI](https://i.imgur.com/your-final-smci-screenshot.png)
+**Explanation Chart for SMCI**
+
+<img width="1898" height="529" alt="Screenshot 2025-08-22 004324" src="https://github.com/user-attachments/assets/abc6eb56-b3db-4e98-9bcd-0664f1feb4ff" />
+
+<img width="1892" height="647" alt="Screenshot 2025-08-22 004354" src="https://github.com/user-attachments/assets/701ae835-8475-4cab-b7a3-5d9e69417f0d" />
+
+<img width="1882" height="679" alt="Screenshot 2025-08-22 004413" src="https://github.com/user-attachments/assets/0963b5a7-1962-4588-96c3-4fc69699d0d8" />
 
 As the chart above proves, our platform doesn't hide complexity—it reveals it:
 
