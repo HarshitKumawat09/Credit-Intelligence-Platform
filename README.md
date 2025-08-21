@@ -137,3 +137,88 @@ The entire backend is **containerized with Docker** for reproducibility and depl
 ---
 
 🔥 **CredLens is not just another score generator — it’s the future of explainable, real-time credit intelligence.**  
+
+## 3. System Architecture & Design
+
+CredLens is built on a modern, decoupled, and scalable architecture designed for real-time performance, resilience, and maintainability. The system is composed of two primary services: a Streamlit frontend for the user interface and a FastAPI backend for all data processing and machine learning logic.
+
+### High-Level Component Diagram (UML Style)
+
+This diagram illustrates the main software components and their dependencies.
+
+```mermaid
+graph TD
+    subgraph "User Tier"
+        User[👤 Analyst]
+    end
+
+    subgraph "Frontend Tier (Streamlit Cloud)"
+        Frontend[🌐 Streamlit Dashboard]
+    end
+
+    subgraph "Backend Tier (Docker on Railway)"
+        BackendAPI[🚀 FastAPI Server]
+        ScoringEngine[🧠 Scoring Engine]
+        DataFetcher[📡 Data Fetcher]
+        ModelStore[(💾 Model Storage)]
+    end
+
+    subgraph "External Services"
+        YFinanceAPI[Yahoo Finance API]
+        FRED_API[FRED API]
+        NewsAPI[NewsAPI]
+    end
+
+    User -- "Interacts" --> Frontend
+    Frontend -- "API Request (HTTP)" --> BackendAPI
+    BackendAPI -- "Uses" --> DataFetcher
+    BackendAPI -- "Uses" --> ScoringEngine
+    ScoringEngine -- "Loads/Saves Models" --> ModelStore
+    DataFetcher -- "Fetches Data" --> YFinanceAPI
+    DataFetcher -- "Fetches Data" --> FRED_API
+    DataFetcher -- "Fetches Data" --> NewsAPI
+```
+
+### Data Flow & Sequence Diagram (UML Style)
+
+This diagram shows the sequence of events for a typical user request, highlighting our real-time, non-blocking architecture.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant BackendAPI as FastAPI Backend
+    participant BackgroundTask as Async Retraining
+    participant ExternalAPIs as Data Sources
+
+    User->>Frontend: Enters Ticker & Clicks "Analyze"
+    Frontend->>BackendAPI: GET /api/v1/score/{ticker}
+    
+    activate BackendAPI
+    BackendAPI->>ExternalAPIs: Fetch all required data (YFinance, FRED, News)
+    ExternalAPIs-->>BackendAPI: Return fresh data
+    
+    BackendAPI->>BackendAPI: 1. Calculate Fundamental Score
+    BackendAPI->>BackendAPI: 2. Load pre-trained Technical Model
+    BackendAPI->>BackendAPI: 3. Calculate Technical Penalty
+    BackendAPI->>BackendAPI: 4. Compute Final Score & Explanation
+    
+    par
+        BackendAPI-->>Frontend: Return full JSON Response (Instant)
+        and
+        BackendAPI-->>BackgroundTask: Trigger Retraining Job
+    end
+    deactivate BackendAPI
+
+    activate Frontend
+    Frontend->>User: Display Gauges, Charts, and Insights
+    deactivate Frontend
+
+    activate BackgroundTask
+    BackgroundTask->>ExternalAPIs: Re-fetch all fresh data
+    ExternalAPIs-->>BackgroundTask: Return fresh data
+    BackgroundTask->>BackgroundTask: Run Optuna Tuning & Retrain Model
+    BackgroundTask->>BackgroundTask: Save new model to disk
+    deactivate BackgroundTask
+```
+
