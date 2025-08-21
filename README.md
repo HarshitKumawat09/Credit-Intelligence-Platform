@@ -41,7 +41,13 @@ Instructions:
 * ✅ **Intelligent & Robust Fallbacks:** The system is fully resilient. It gracefully handles API failures and can produce a qualitative, rule-based **Heuristic Assessment** for stocks that cannot be scored by the ML model due to insufficient data.
 * ✅ **Lightweight MLOps Pipeline:** The entire backend is containerized with **Docker** for perfect reproducibility. It includes an API endpoint to trigger automated background retraining of core models, ensuring the system's intelligence stays fresh without any downtime.
 
+## 3. System Architecture
 
+Our platform utilizes a modern, decoupled architecture for scalability and maintainability.
+
+*   **Frontend:** A responsive dashboard built with **Streamlit** and deployed on Streamlit Community Cloud.
+*   **Backend:** A high-performance API server built with **FastAPI** and deployed as a Docker container on Railway.
+*   **ML Engine:** Uses **XGBoost** for the specialized technical model and **Optuna** for efficient, intelligent hyperparameter optimization.
 ```
 +------------------+      +---------------------+      +----------------+
 |      User        | ---> |  Streamlit Frontend | <--> |  FastAPI Backend |
