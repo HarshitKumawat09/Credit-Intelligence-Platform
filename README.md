@@ -30,7 +30,8 @@ Instructions:
 3. Replace this entire block with the generated image link.
 ======================================================================
 -->
-![CredLens Dashboard](<img width="1906" height="821" alt="Screenshot 2025-08-22 003447" src="https://github.com/user-attachments/assets/5ae80962-2bbf-4bc1-866c-8f387fc3e295" />)
+![<img width="1906" height="821" alt="Screenshot 2025-08-22 003447" src="https://github.com/user-attachments/assets/9f43d8e0-810c-45cd-afb0-105df73962de" />]
+[CredLens Dashboard]()
 
 
 
