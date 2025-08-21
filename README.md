@@ -30,7 +30,9 @@ Instructions:
 3. Replace this entire block with the generated image link.
 ======================================================================
 -->
-![CredLens Dashboard](https://i.imgur.com/your-main-screenshot-url.png)
+![CredLens Dashboard](<img width="1906" height="821" alt="Screenshot 2025-08-22 003447" src="https://github.com/user-attachments/assets/5ae80962-2bbf-4bc1-866c-8f387fc3e295" />)
+
+
 
 ## ✨2. Key Features
 
@@ -40,6 +42,7 @@ Instructions:
 * ✅ **Interactive & Polished Dashboard:** A fluid and intuitive Streamlit UI featuring interactive score gauges, a "Feature Deep Dive" explorer for historical trend analysis, and sentiment-highlighted news headlines.
 * ✅ **Intelligent & Robust Fallbacks:** The system is fully resilient. It gracefully handles API failures and can produce a qualitative, rule-based **Heuristic Assessment** for stocks that cannot be scored by the ML model due to insufficient data.
 * ✅ **Lightweight MLOps Pipeline:** The entire backend is containerized with **Docker** for perfect reproducibility. It includes an API endpoint to trigger automated background retraining of core models, ensuring the system's intelligence stays fresh without any downtime.
+
 
 ## 3. System Architecture
 
@@ -161,6 +164,7 @@ This project's final architecture is the result of solving several complex, real
 *   **Decision:** We implemented a **hybrid training architecture** using FastAPI's `BackgroundTasks`. The user receives an instant score based on the latest data applied to a pre-trained model. In the background, an asynchronous task is triggered to retrain the model with that new data.
 *   **Outcome:** The UI is instantaneous, while the model's intelligence is continuously updated, providing the best of both worlds.
 
+
 ## 📊5. Model Performance & Explainability
 
 Accuracy is only half the story. The core challenge of the hackathon was to replace the "black box" with a transparent, evidence-backed system that analysts can trust. Our platform is built from the ground up to achieve this.
@@ -229,6 +233,7 @@ An analyst can now instantly understand the nuanced story: the company has funda
     *   **Terminal 2 (Frontend):** `streamlit run frontend/app.py`
 
 5️⃣  Open your browser to the local Streamlit URL 👉 (usually `http://localhost:8501`).
+
 
 ## 🏆 Why CredLens Stands Out  
 
