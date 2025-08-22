@@ -33,10 +33,7 @@ Instructions:
 
 **CredLens Dashboard**
 
-<img width="1906" height="821" alt="Screenshot 2025-08-22 003447" src="https://github.com/user-attachments/assets/9f43d8e0-810c-45cd-afb0-105df73962de" />
-
 <img width="1715" height="786" alt="Screenshot 2025-08-22 084420" src="https://github.com/user-attachments/assets/7675c001-be71-499f-bea6-f3a556107270" />
-
 
 ## ✨2. Key Features
 
