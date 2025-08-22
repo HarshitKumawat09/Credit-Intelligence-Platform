@@ -73,35 +73,35 @@ This diagram illustrates the main software components and their dependencies.
 
 ```mermaid
 graph TD
-    subgraph "User Tier"
-        User[Analyst]
+    subgraph "👤 User Tier"
+        User[👤 Analyst]
     end
 
-    subgraph "Frontend Tier (Streamlit Cloud)"
-        Frontend[Streamlit Dashboard]
+    subgraph "🌐 Frontend Tier (Streamlit Cloud)"
+        Frontend[📊 Streamlit Dashboard]
     end
 
-    subgraph "Backend Tier (Docker on Railway)"
-        BackendAPI[FastAPI Server]
-        ScoringEngine[Scoring Engine]
-        DataFetcher[Data Fetcher]
-        ModelStore[(Model Storage)]
+    subgraph "🚀 Backend Tier (Docker on Railway)"
+        BackendAPI[⚡ FastAPI Server]
+        ScoringEngine[🧠 Scoring Engine]
+        DataFetcher[📡 Data Fetcher]
+        ModelStore[(💾 Model Storage)]
     end
 
-    subgraph "External Services"
-        YFinanceAPI[Yahoo Finance API]
-        FRED_API[FRED API]
-        NewsAPI[NewsAPI]
+    subgraph "🌍 External Services"
+        YFinanceAPI[📈 Yahoo Finance API]
+        FRED_API[🏛️ FRED API]
+        NewsAPI[📰 NewsAPI]
     end
 
-    User -- "Interacts" --> Frontend
-    Frontend -- "API Request (HTTP)" --> BackendAPI
+    User -- "Interacts with" --> Frontend
+    Frontend -- "HTTP Request" --> BackendAPI
     BackendAPI -- "Uses" --> DataFetcher
     BackendAPI -- "Uses" --> ScoringEngine
-    ScoringEngine -- "Loads/Saves Models" --> ModelStore
-    DataFetcher -- "Fetches Data" --> YFinanceAPI
-    DataFetcher -- "Fetches Data" --> FRED_API
-    DataFetcher -- "Fetches Data" --> NewsAPI
+    ScoringEngine -- "Loads/Saves" --> ModelStore
+    DataFetcher -- "Fetches" --> YFinanceAPI
+    DataFetcher -- "Fetches" --> FRED_API
+    DataFetcher -- "Fetches" --> NewsAPI
 ```
 
 ## ⚖️4. Key Architectural Decisions & Trade-offs
