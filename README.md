@@ -9,7 +9,7 @@
 - Harshit Kumawat  
 - Shashank Shekhar  
 
-🔗 **Live Demo URL:** `[YOUR DEPLOYED FRONTEND URL HERE]`  
+🔗 **Live Demo URL:** [CredLens Dashboard](https://credit-risk-hackathon-as8njuu3bdu5gapkh5v457.streamlit.app)
 🔗 **Live Backend API:** [CredLens API](https://credit-risk-hackathon-production.up.railway.app/api/v1/sco)
 
 ---
