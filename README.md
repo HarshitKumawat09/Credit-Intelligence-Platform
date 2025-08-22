@@ -45,25 +45,25 @@ Instructions:
 * ✅ **Lightweight MLOps Pipeline:** The entire backend is containerized with **Docker** for perfect reproducibility. It includes an API endpoint to trigger automated background retraining of core models, ensuring the system's intelligence stays fresh without any downtime.
 
 
-## 3. System Architecture
+## ⚙️3. System Architecture
 
 CredLens is built on a modern, decoupled, and scalable architecture designed for real-time performance, resilience, and maintainability. The system is composed of two primary services: a Streamlit frontend for the user interface and a FastAPI backend for all data processing and machine learning logic.
 
-*   **Frontend:** A responsive dashboard built with **Streamlit** and deployed on Streamlit Community Cloud.
-*   **Backend:** A high-performance API server built with **FastAPI** and deployed as a Docker container on Railway.
-*   **ML Engine:** Uses **XGBoost** for the specialized technical model and **Optuna** for efficient, intelligent hyperparameter optimization.
+* 🎨 **Frontend:** A responsive dashboard built with **Streamlit** and deployed on Streamlit Community Cloud.
+* 🚀 **Backend:** A high-performance API server built with **FastAPI** and deployed as a Docker container on Railway.
+* 🧠 **ML Engine:** Uses **XGBoost** for the specialized technical model and **Optuna** for efficient, intelligent hyperparameter optimization.
 ```
 +------------------+      +---------------------+      +----------------+
-|      User        | ---> |  Streamlit Frontend | <--> |  FastAPI Backend |
+|   👤 User       | ---> |🌐Streamlit Frontend| <--> |🚀FastAPI Backend|
 +------------------+      +---------------------+      +----------------+
                                                            |
                                      +---------------------+---------------------+
                                      |                     |                     |
                                +---------------+   +---------------+   +---------------+
-                               | Yahoo Finance |   |     FRED      |   |    NewsAPI    |
+                               |📈Yahoo Finance |   |  🏛️ FRED      |   |  📰 NewsAPI    |
                                +---------------+   +---------------+   +---------------+
 ```
-### High-Level Component Diagram (UML Style)
+### 🗂️ High-Level Component Diagram (UML Style)
 
 This diagram illustrates the main software components and their dependencies.
 
@@ -85,9 +85,9 @@ graph TD
     end
 
     subgraph "External Services"
-        YFinanceAPI[Yahoo Finance API]
-        FRED_API[FRED API]
-        NewsAPI[NewsAPI]
+        YFinanceAPI[📈Yahoo Finance API]
+        FRED_API[🏛️FRED API]
+        NewsAPI[📰NewsAPI]
     end
 
     User -- "Interacts" --> Frontend
@@ -99,7 +99,7 @@ graph TD
     DataFetcher -- "Fetches Data" --> FRED_API
     DataFetcher -- "Fetches Data" --> NewsAPI
 ```
-### Data Flow & Sequence Diagram (UML Style)
+### 🔄 Data Flow & Sequence Diagram (UML Style)
 
 This diagram shows the sequence of events for a typical user request, highlighting our real-time, non-blocking architecture.
 
