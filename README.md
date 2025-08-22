@@ -10,7 +10,7 @@
 - Shashank Shekhar  
 
 🔗 **Live Demo URL:** `[YOUR DEPLOYED FRONTEND URL HERE]`  
-🔗 **Live Backend API:** `[(https://credit-risk-hackathon-production.up.railway.app/api/v1/score)]`  
+🔗 **Live Backend API:** `https://credit-risk-hackathon-production.up.railway.app/api/v1/score`  
 
 
 ---
