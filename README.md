@@ -168,8 +168,8 @@ Our model's goal is to predict periods of **future instability**, which we defin
 1.  **Holdout Test Set:** For each ticker, the historical data is split. 80% is used for training, and the final 20% is held back as a completely unseen test set to measure true performance.
 2.  **Intelligent Tuning:** We use **Optuna** for efficient hyperparameter optimization, allowing us to find the best-performing model configuration for each stock's unique historical patterns.
 3.  **Realistic Metrics:** The model's performance is measured by the **AUC (Area Under the Curve)** score on the holdout test set. This metric tells us how well the model can distinguish between stable and unstable future periods.
-    *   For a stable, well-documented stock like **NVDA**, our model achieved a **Final Test Set AUC Score of ~0.91**, demonstrating high predictive accuracy.
-    *   For a more volatile and fundamentally complex stock like **SMCI**, the model achieved a more realistic but still powerful **AUC Score of ~0.65**. This score confirms the model has genuine predictive power without the artificially high results often caused by model bias.
+    *   For a stable, well-documented stock like **NVDA**, our model achieved a **Final Test Set AUC Score of ~0.9619**, demonstrating high predictive accuracy.
+    *   For a more volatile and fundamentally complex stock like **SMCI**, the model achieved a more realistic but still powerful **AUC Score of ~0.9653**. This score confirms the model has genuine predictive power without the artificially high results often caused by model bias.
 
 ### The Power of Explainability (Our Core Innovation)
 
