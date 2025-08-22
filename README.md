@@ -64,9 +64,12 @@ CredLens is built on a modern, decoupled, and scalable architecture designed for
                                +---------------+   +---------------+   +---------------+
 ```
 
-### High-Level Component Diagram (UML Style)
 
-This diagram illustrates the main software components and their dependencies.
+---
+
+### High-Level Component Diagram (UML Style)  
+
+This diagram illustrates the main software components and their dependencies.  
 
 ```mermaid
 graph TD
@@ -99,8 +102,7 @@ graph TD
     DataFetcher -- "Fetches Data" --> YFinanceAPI
     DataFetcher -- "Fetches Data" --> FRED_API
     DataFetcher -- "Fetches Data" --> NewsAPI
-
-
+```
 
 ## ⚖️4. Key Architectural Decisions & Trade-offs
 
