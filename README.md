@@ -63,11 +63,8 @@ CredLens is built on a modern, decoupled, and scalable architecture designed for
                                |📈Yahoo Finance |   |  🏛️ FRED      |   |  📰 NewsAPI    |
                                +---------------+   +---------------+   +---------------+
 ```
-### 🗂️ High-Level Component Diagram (UML Style)
-
-This diagram illustrates the main software components and their dependencies.
-
-```mermaid
+### High-Level Component Diagram (UML Style) This diagram illustrates the main software components and their dependencies.
+mermaid
 graph TD
     subgraph "User Tier"
         User[👤 Analyst]
@@ -85,9 +82,9 @@ graph TD
     end
 
     subgraph "External Services"
-        YFinanceAPI[📈Yahoo Finance API]
-        FRED_API[🏛️FRED API]
-        NewsAPI[📰NewsAPI]
+        YFinanceAPI[Yahoo Finance API]
+        FRED_API[FRED API]
+        NewsAPI[NewsAPI]
     end
 
     User -- "Interacts" --> Frontend
@@ -98,7 +95,7 @@ graph TD
     DataFetcher -- "Fetches Data" --> YFinanceAPI
     DataFetcher -- "Fetches Data" --> FRED_API
     DataFetcher -- "Fetches Data" --> NewsAPI
-```
+    
 ### 🔄 Data Flow & Sequence Diagram (UML Style)
 
 This diagram shows the sequence of events for a typical user request, highlighting our **real-time, non-blocking architecture**.
