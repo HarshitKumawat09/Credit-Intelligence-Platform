@@ -52,7 +52,7 @@ CredLens is built on a modern, decoupled, and scalable architecture designed for
 * 🎨 **Frontend:** A responsive dashboard built with **Streamlit** and deployed on Streamlit Community Cloud.
 * 🚀 **Backend:** A high-performance API server built with **FastAPI** and deployed as a Docker container on Railway.
 * 🧠 **ML Engine:** Uses **XGBoost** for the specialized technical model and **Optuna** for efficient, intelligent hyperparameter optimization.
-
+```
 +------------------+      +---------------------+      +----------------+
 |   👤 User       | ---> |🌐Streamlit Frontend| <--> |🚀FastAPI Backend|
 +------------------+      +---------------------+      +----------------+
@@ -62,6 +62,7 @@ CredLens is built on a modern, decoupled, and scalable architecture designed for
                                +---------------+   +---------------+   +---------------+
                                |📈Yahoo Finance |   |  🏛️ FRED      |   |  📰 NewsAPI    |
                                +---------------+   +---------------+   +---------------+
+```
 
 ### High-Level Component Diagram (UML Style)
 
