@@ -103,6 +103,57 @@ graph TD
     DataFetcher -- "Fetches Data" --> FRED_API
     DataFetcher -- "Fetches Data" --> NewsAPI
 ```
+### 🔄 Data Flow & Sequence Diagram (UML Style)
+
+This diagram shows the sequence of events for a typical user request, highlighting our **real-time, non-blocking architecture**.
+
+```mermaid
+sequenceDiagram
+    %% Participants
+    participant User
+    participant Frontend
+    participant Backend as FastAPI Backend
+    participant AsyncJob as Background Retraining
+    participant External as External APIs (YFinance, FRED, News)
+
+    %% User initiates request
+    User->>Frontend: Enter Ticker & Click "Analyze"
+    Frontend->>Backend: GET /api/v1/score/{ticker}
+
+    activate Backend
+
+    %% Backend fetches data
+    Backend->>External: Fetch data (YFinance, FRED, News)
+    External-->>Backend: Return fresh data
+
+    %% Backend processing
+    Backend->>Backend: Calculate Fundamental Score
+    Backend->>Backend: Load Technical Model
+    Backend->>Backend: Compute Technical Penalty
+    Backend->>Backend: Final Score + Explanation
+
+    %% Parallel response & async retraining
+    par Send Response
+        Backend-->>Frontend: Return JSON (Score + Insights)
+    and Trigger Async Retraining
+        Backend-->>AsyncJob: Start Retraining Task
+    end
+
+    deactivate Backend
+
+    %% Frontend renders results
+    activate Frontend
+    Frontend->>User: Show Charts, Gauges & Insights
+    deactivate Frontend
+
+    %% Background async job
+    activate AsyncJob
+    AsyncJob->>External: Re-fetch Full Data
+    External-->>AsyncJob: Return Updated Data
+    AsyncJob->>AsyncJob: Run Optuna Tuning
+    AsyncJob->>AsyncJob: Retrain & Save Model
+    deactivate AsyncJob
+```
 
 ## ⚖️4. Key Architectural Decisions & Trade-offs
 
