@@ -73,25 +73,25 @@ This diagram illustrates the main software components and their dependencies.
 
 ```mermaid
 graph TD
-    subgraph "User Tier"
-        User[Analyst]
+    subgraph "👤User Tier"
+        User[👤Analyst]
     end
 
-    subgraph "Frontend Tier (Streamlit Cloud)"
+    subgraph "🌐Frontend Tier (Streamlit Cloud)"
         Frontend[Streamlit Dashboard]
     end
 
-    subgraph "Backend Tier (Docker on Railway)"
+    subgraph "🚀Backend Tier (Docker on Railway)"
         BackendAPI[FastAPI Server]
         ScoringEngine[Scoring Engine]
         DataFetcher[Data Fetcher]
         ModelStore[(Model Storage)]
     end
 
-    subgraph "External Services"
-        YFinanceAPI[Yahoo Finance API]
-        FRED_API[FRED API]
-        NewsAPI[NewsAPI]
+    subgraph "🌍External Services"
+        YFinanceAPI[📈Yahoo Finance API]
+        FRED_API[🏛️FRED API]
+        NewsAPI[📰NewsAPI]
     end
 
     User -- "Interacts" --> Frontend
