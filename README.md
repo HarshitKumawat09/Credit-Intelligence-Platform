@@ -264,7 +264,40 @@ The entire backend is **containerized with Docker** for reproducibility and depl
 
 🔥 **CredLens is not just another score generator — it’s the future of explainable, real-time credit intelligence.**  
 
+```mermaid
+sequenceDiagram
+    %% Participants
+    participant User as 👤 User
+    participant Frontend as 🌐 Frontend (Streamlit)
+    participant Backend as 🚀 Backend (FastAPI)
+    participant AsyncJob as 🔧 Background Retraining
+    participant External as 🌍 External APIs
 
+    %% User initiates request
+    User->>Frontend: Enters Ticker & Clicks "Analyze"
+    Frontend->>Backend: Request Score (API)
+
+    activate Backend
+    Backend->>External: Fetch Market + News Data
+    External-->>Backend: Return Fresh Data
+
+    Backend->>Backend: Process Data & Compute Score
+    Backend-->>Frontend: Respond with Score + Insights
+    Backend-->>AsyncJob: Trigger Background Retraining
+    deactivate Backend
+
+    %% Frontend response
+    activate Frontend
+    Frontend->>User: Display Charts, Gauges & Insights
+    deactivate Frontend
+
+    %% Background async job
+    activate AsyncJob
+    AsyncJob->>External: Fetch Full Data
+    External-->>AsyncJob: Return Data
+    AsyncJob->>AsyncJob: Retrain Model + Save
+    deactivate AsyncJob
+```
 
 
 
