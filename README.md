@@ -34,6 +34,7 @@ Instructions:
 **CredLens Dashboard**
 
 <img width="1906" height="821" alt="Screenshot 2025-08-22 003447" src="https://github.com/user-attachments/assets/9f43d8e0-810c-45cd-afb0-105df73962de" />
+![WhatsApp Image 2025-08-22 at 08 35 44_e1a6c484](https://github.com/user-attachments/assets/92562d02-b24a-4782-ba0e-45651da09b06)
 
 
 ## ✨2. Key Features
