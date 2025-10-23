@@ -3,6 +3,7 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from backend.services.data_fetcher import get_yahoo_finance_data, get_market_sentiment_data, get_news_data, get_fred_data
 from backend.services.scoring_engine import get_score_and_explanation, train_technical_model, engineer_features
+from backend.tasks.retrain_all import run_retraining_job
 import logging
 import pandas as pd # <-- IMPORT MOVED TO TOP
 
@@ -61,6 +62,16 @@ async def get_credit_score(ticker: str, background_tasks: BackgroundTasks):
     background_tasks.add_task(retrain_model_background, ticker)
     logging.info(f"Scheduled background retraining for {ticker}.")
     return {"ticker": ticker.upper(), "company_name": company_name, "company_info": yf_data.get("info"), "score_result": result, "stock_history": yf_data.get("historical_data"), "recent_news_for_context": news_data[:5] if news_data else []}
+
+@app.post("/api/v1/trigger-retraining-job")
+async def trigger_retraining(background_tasks: BackgroundTasks):
+    """
+    Manually trigger the full retraining job in the background.
+    """
+    logging.info("Manual retraining job triggered via API endpoint.")
+    # Schedule the long-running retraining function as a background task
+    background_tasks.add_task(run_retraining_job)
+    return {"message": "Accepted. The model retraining job has been started in the background. Check server logs for progress."}
 
 @app.get("/")
 def read_root(): return {"message": "CredTech API is running."}
