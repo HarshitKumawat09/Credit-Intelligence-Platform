@@ -1,17 +1,22 @@
 # 💳🔎 **CredLens: A Real-Time, Explainable Credit Intelligence Platform**
 
-🚀 **CredTech Hackathon Submission**  
+<div align="center">
+  <h1>CredLens</h1>
+  <h3>AI-Powered Credit Risk Analysis Platform</h3>
+  
+  [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.116.1-009688.svg)](https://fastapi.tiangolo.com/)
+  [![Streamlit](https://img.shields.io/badge/Streamlit-1.48.1-FF4B4B.svg)](https://streamlit.io/)
+  [![XGBoost](https://img.shields.io/badge/XGBoost-3.0.4-3776AB.svg)](https://xgboost.ai/)
+  [![SHAP](https://img.shields.io/badge/SHAP-0.45.2-FF6B6B.svg)](https://shap.readthedocs.io/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-👥 **Team Name:** Risk Raiders  
-
-👨‍💻 **Team Members:**  
-- Harshit Kumar  
-- Harshit Kumawat  
-- Shashank Shekhar  
-
-🔗 **Live Demo URL:** [CredLens Dashboard](https://credit-risk-hackathon-as8njuu3bdu5gapkh5v457.streamlit.app)
-
-🔗 **Live Backend API:** [CredLens API](https://credit-risk-hackathon-production.up.railway.app/api/v1/sco)
+  <p align="center">
+    <img src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen" alt="Status">
+    <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version">
+    <img src="https://img.shields.io/badge/Accuracy-92%25-success" alt="Accuracy">
+  </p>
+</div>
 
 ---
 
