@@ -21,9 +21,11 @@
 
 ## 📖 1. Project Overview
 
-Traditional credit ratings are **slow, opaque, and outdated** often lag behind real-world events. **CredLens** is a modern solution to this problem. It's a **real-time, explainable credit intelligence platform** that ingests High-frequency **market data**, Fundamental **financial metrics**, and Unstructured **news headlines** data to generate a dynamic and **transparent Stability Score**.
+Traditional credit ratings are **slow, opaque, and reactive**, often failing to reflect real-world risk in a timely manner. **CredLens** addresses this gap with a **real-time, explainable credit intelligence platform** designed for modern financial decision-making.
 
-The system employs machine learning (XGBoost) to process 50+ financial indicators, delivering credit risk scores with 92% accuracy. Advanced features include scenario simulation, trend analysis, and automated reporting.
+**CredLens** continuously ingests high-frequency **market data**, fundamental **financial metrics**, and unstructured **news sentiment** to generate a dynamic and **transparent Stability Score**. At its core, the system leverages XGBoost-based machine learning to analyze **50+** financial indicators, achieving **92%** accuracy in credit risk classification.
+
+Beyond scoring, **CredLens** offers scenario simulation, risk trend analysis, and automated reporting, enabling institutions to anticipate risk, understand its drivers, and act with confidence.
 
 <!-- 
 ======================================================================
