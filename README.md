@@ -253,13 +253,15 @@ Adopted a **modular service-oriented architecture** with:
 | Uptime | 99.9% | 99.95% |
 | Data Freshness | <5 min | 2 min |
 
+<img width="1884" height="808" alt="Screenshot 2025-12-13 203012" src="https://github.com/user-attachments/assets/509d2485-f35f-42e4-8a35-896cf7ac839d" />
 
-<img width="1898" height="529" alt="Screenshot 2025-08-22 004324" src="https://github.com/user-attachments/assets/abc6eb56-b3db-4e98-9bcd-0664f1feb4ff" />
+<img width="1880" height="687" alt="Screenshot 2025-12-13 203120" src="https://github.com/user-attachments/assets/fd44b54d-1b69-40f8-9dfb-ffc164ba05b0" />
 
-<img width="1892" height="647" alt="Screenshot 2025-08-22 004354" src="https://github.com/user-attachments/assets/701ae835-8475-4cab-b7a3-5d9e69417f0d" />
+<img width="1874" height="796" alt="Screenshot 2025-12-13 203201" src="https://github.com/user-attachments/assets/4db4cd2d-f04c-43e8-9f84-a718bdc7097f" />
 
-<img width="1882" height="679" alt="Screenshot 2025-08-22 004413" src="https://github.com/user-attachments/assets/0963b5a7-1962-4588-96c3-4fc69699d0d8" />
+<img width="1848" height="652" alt="Screenshot 2025-12-13 203445" src="https://github.com/user-attachments/assets/4d5d9919-f048-493b-a60e-801822fe1622" />
 
+<img width="1880" height="766" alt="Screenshot 2025-12-13 203832" src="https://github.com/user-attachments/assets/f0adc30b-38c6-4f77-9eba-d36973fea039" />
 
 ## ⚙️6. How to Run Locally
 
